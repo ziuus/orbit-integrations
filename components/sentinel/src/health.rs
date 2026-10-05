@@ -5,7 +5,7 @@
 //! the subsystem, the measured value and the threshold it crossed. No scores,
 //! no invented composite index.
 
-use vanta_ext_sdk::telemetry::{Cpu, Disk, Memory};
+use orbit_ext_sdk::telemetry::{Cpu, Disk, Memory};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Level {

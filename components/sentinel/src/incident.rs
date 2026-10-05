@@ -1,6 +1,6 @@
 //! Incident lifecycle engine.
 //!
-//! This is the capability Vanta does not have: native panels answer "what is
+//! This is the capability Orbit does not have: native panels answer "what is
 //! happening now", this answers "what went wrong, when, for how long, and
 //! what was running when it started".
 //!

@@ -1,21 +1,21 @@
-# Contributing to Vanta Integrations
+# Contributing to Orbit Integrations
 
-Welcome! This repository serves as the official registry for community-built Vanta extensions.
+Welcome! This repository serves as the official registry for community-built Orbit extensions.
 
-Vanta uses a **Decentralized Registry Model** (similar to Raycast or Neovim plugins). You do **not** need to submit your source code to this repository. You only need to add your extension to the `registry.json` file.
+Orbit uses a **Decentralized Registry Model** (similar to Raycast or Neovim plugins). You do **not** need to submit your source code to this repository. You only need to add your extension to the `registry.json` file.
 
-## How to Create and Publish a Vanta Extension
+## How to Create and Publish a Orbit Extension
 
 ### Step 1: Build Your Extension
 Use our provided template to scaffold your WASM micro-extension.
 
 ```bash
 # Clone this repository just to get the template
-git clone https://github.com/ziuus/vanta-integrations
-cp -r vanta-integrations/vanta-extension-template my-vanta-extension
-cd my-vanta-extension
+git clone https://github.com/ziuus/orbit-integrations
+cp -r orbit-integrations/orbit-extension-template my-orbit-extension
+cd my-orbit-extension
 ```
-Edit `src/lib.rs` and `Cargo.toml` to build your desired functionality. Use `vanta link /path/to/wasm` to test it locally in Vanta.
+Edit `src/lib.rs` and `Cargo.toml` to build your desired functionality. Use `orbit link /path/to/wasm` to test it locally in Orbit.
 
 ### Step 2: Host on GitHub and Release
 1. Create a new public repository for your extension on your own GitHub account.
@@ -24,9 +24,9 @@ Edit `src/lib.rs` and `Cargo.toml` to build your desired functionality. Use `van
 4. Create a **GitHub Release** in your repository and attach the compiled `.wasm` file as an asset.
 
 ### Step 3: Add to the Registry
-To make your extension available to all Vanta users via `vanta search` and `vanta install`:
+To make your extension available to all Orbit users via `orbit search` and `orbit install`:
 
-1. Fork this `vanta-integrations` repository.
+1. Fork this `orbit-integrations` repository.
 2. Edit `registry.json` and append your extension's metadata. 
    - `id`: The unique ID for your extension
    - `name`: Human-readable name
@@ -37,4 +37,4 @@ To make your extension available to all Vanta users via `vanta search` and `vant
    - `sha256`: The SHA-256 hash of your `.wasm` file (run `sha256sum your_plugin.wasm`)
 3. Open a Pull Request!
 
-Once your PR is merged, your extension will immediately appear in the `vanta search` CLI and on the Vanta integrations website.
+Once your PR is merged, your extension will immediately appear in the `orbit search` CLI and on the Orbit integrations website.

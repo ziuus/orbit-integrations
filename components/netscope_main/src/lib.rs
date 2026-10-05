@@ -2,9 +2,9 @@
 use extism_pdk::*;
 use std::cell::RefCell;
 use std::collections::{HashMap, HashSet};
-use vanta_ext_sdk::history::now_ms;
-use vanta_ext_sdk::telemetry::{self, ConnectionEntry};
-use vanta_ext_sdk::ui::{Block, Color, Line, Span, Style, Widget};
+use orbit_ext_sdk::history::now_ms;
+use orbit_ext_sdk::telemetry::{self, ConnectionEntry};
+use orbit_ext_sdk::ui::{Block, Color, Line, Span, Style, Widget};
 
 const REFRESH_MS: u64 = 800;
 const ACTIVITY_RING: usize = 20;
@@ -412,12 +412,12 @@ fn build_netscope(
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "netscope_main",
         "Netscope Main",
         "0.1.0",
         "Micro-extension",
-        vanta_ext_sdk::API_VERSION_TELEMETRY,
+        orbit_ext_sdk::API_VERSION_TELEMETRY,
     )
     .to_json())
 }
@@ -435,7 +435,7 @@ pub fn render_widget(id: String) -> FnResult<Vec<u8>> {
         "netscope_table" => build_netscope(80, 24, true, false, false),
         "netscope_summary" => build_netscope(80, 24, false, true, false),
         "netscope_activity" => build_netscope(80, 24, false, false, true),
-        _ => return Ok(vanta_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
+        _ => return Ok(orbit_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
     };
     Ok(widget.to_json())
 }

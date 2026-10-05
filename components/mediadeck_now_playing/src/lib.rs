@@ -2,7 +2,7 @@
 use extism_pdk::*;
 use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
-use vanta_ext_sdk::{
+use orbit_ext_sdk::{
     telemetry::query,
     ui::{unavailable, Block, Color, Line, Span, Style, Widget},
     API_VERSION_TELEMETRY,
@@ -11,7 +11,7 @@ use base64::{Engine as _, engine::general_purpose::STANDARD};
 
 #[host_fn]
 extern "ExtismHost" {
-    fn vanta_query(input: String) -> String;
+    fn orbit_query(input: String) -> String;
 }
 
 #[derive(Clone, Default, Serialize, Deserialize)]
@@ -37,10 +37,10 @@ thread_local! {
     static CACHED_ART: RefCell<Option<(String, Vec<Line>)>> = RefCell::new(None);
 }
 
-fn fetch_data() -> Result<State, vanta_ext_sdk::telemetry::TelemetryError> {
+fn fetch_data() -> Result<State, orbit_ext_sdk::telemetry::TelemetryError> {
     let req = serde_json::json!({ "topic": "media" });
     let val = query(&serde_json::to_string(&req).unwrap())?;
-    serde_json::from_value(val).map_err(|_| vanta_ext_sdk::telemetry::TelemetryError::Decode("bad media json".into()))
+    serde_json::from_value(val).map_err(|_| orbit_ext_sdk::telemetry::TelemetryError::Decode("bad media json".into()))
 }
 
 fn get_active(state: &State) -> Option<Track> {
@@ -75,7 +75,7 @@ fn get_image_lines(url: &str) -> Vec<Line> {
         // url decode? mpris might percent encode
         let path = path.replace("%20", " ");
         let req = serde_json::json!({ "topic": "fs_read", "path": path });
-        if let Ok(res) = unsafe { vanta_query(req.to_string()) } {
+        if let Ok(res) = unsafe { orbit_query(req.to_string()) } {
             if let Ok(val) = serde_json::from_str::<serde_json::Value>(&res) {
                 if let Some(b64) = val.get("data").and_then(|d| d.get("bytes_b64")).and_then(|b| b.as_str()) {
                     if let Ok(b) = STANDARD.decode(b64) {
@@ -86,7 +86,7 @@ fn get_image_lines(url: &str) -> Vec<Line> {
         }
     } else if url.starts_with("/") {
         let req = serde_json::json!({ "topic": "fs_read", "path": url });
-        if let Ok(res) = unsafe { vanta_query(req.to_string()) } {
+        if let Ok(res) = unsafe { orbit_query(req.to_string()) } {
             if let Ok(val) = serde_json::from_str::<serde_json::Value>(&res) {
                 if let Some(b64) = val.get("data").and_then(|d| d.get("bytes_b64")).and_then(|b| b.as_str()) {
                     if let Ok(b) = STANDARD.decode(b64) {
@@ -140,7 +140,7 @@ fn get_image_lines(url: &str) -> Vec<Line> {
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "mediadeck_now_playing",
         "MediaDeck Now_Playing Component",
         "0.1.0",
@@ -174,7 +174,7 @@ pub fn render_widget(id: String) -> FnResult<Vec<u8>> {
         sub_spans.push(Span { content: sub, style: Some(Style::dim()) });
 
         // If we have art, we pad the text to sit next to it.
-        // Wait, Vanta SDK Widget::paragraph doesn't support layout columns natively in WASM yet.
+        // Wait, Orbit SDK Widget::paragraph doesn't support layout columns natively in WASM yet.
         // We have to build it manually line by line!
         
         if art_lines.is_empty() {

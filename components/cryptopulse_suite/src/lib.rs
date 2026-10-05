@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 use extism_pdk::*;
 use serde::{Deserialize, Serialize};
-use vanta_ext_sdk::{
+use orbit_ext_sdk::{
     telemetry::{query, TelemetryError},
     ui, Block, Color, Line, Span, Style, Widget, API_VERSION_TELEMETRY,
 };
@@ -325,7 +325,7 @@ fn build_heatmap(_width: u16, height: u16) -> Widget {
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "cryptopulse_suite",
         "CryptoPulse Suite",
         "1.1.0",
@@ -357,7 +357,7 @@ pub fn render_widget(id: String) -> FnResult<Vec<u8>> {
         "crypto_watchlist" => build_watchlist(80, 20),
         "crypto_stats" => build_stats(80, 20),
         "crypto_heatmap" => build_heatmap(80, 20),
-        _ => vanta_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget"),
+        _ => orbit_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget"),
     };
     Ok(widget.to_json())
 }

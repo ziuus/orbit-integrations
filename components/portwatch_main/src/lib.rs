@@ -28,10 +28,10 @@ use extism_pdk::*;
 use std::cell::RefCell;
 use std::collections::HashSet;
 
-use vanta_ext_sdk::history::now_ms;
-use vanta_ext_sdk::telemetry::{self, ConnectionsSnapshot};
-use vanta_ext_sdk::ui::{self, Block, Color, Line, Style, Table, Widget};
-use vanta_ext_sdk::{ExtensionMetadata, API_VERSION_TELEMETRY};
+use orbit_ext_sdk::history::now_ms;
+use orbit_ext_sdk::telemetry::{self, ConnectionsSnapshot};
+use orbit_ext_sdk::ui::{self, Block, Color, Line, Style, Table, Widget};
+use orbit_ext_sdk::{ExtensionMetadata, API_VERSION_TELEMETRY};
 
 const ID: &str = "portwatch";
 const VERSION: &str = "0.1.0";
@@ -573,12 +573,12 @@ fn build_port_activity(w: u16, h: u16) -> Widget {
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "portwatch_main",
         "Portwatch Main",
         "0.1.0",
         "Micro-extension",
-        vanta_ext_sdk::API_VERSION_TELEMETRY,
+        orbit_ext_sdk::API_VERSION_TELEMETRY,
     )
     .to_json())
 }
@@ -595,7 +595,7 @@ pub fn render_widget(id: String) -> FnResult<Vec<u8>> {
         "portwatch" => build_portwatch(80, 24),
         "port_listeners" => build_port_listeners(80, 24),
         "port_activity" => build_port_activity(80, 24),
-        _ => return Ok(vanta_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
+        _ => return Ok(orbit_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
     };
     Ok(widget.to_json())
 }

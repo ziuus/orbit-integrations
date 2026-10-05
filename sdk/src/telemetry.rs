@@ -1,6 +1,6 @@
-//! Typed client for the host's `vanta_query` telemetry function.
+//! Typed client for the host's `orbit_query` telemetry function.
 //!
-//! The host function only exists on Vanta >= 0.10.26. Importing it makes the
+//! The host function only exists on Orbit >= 0.10.26. Importing it makes the
 //! plugin fail to instantiate on older hosts (unknown import), so an extension
 //! that uses this module declares `api_version = "0.9.2"`.
 //!
@@ -12,7 +12,7 @@ use serde::Deserialize;
 #[cfg(target_arch = "wasm32")]
 #[extism_pdk::host_fn]
 extern "ExtismHost" {
-    fn vanta_query(request: String) -> String;
+    fn orbit_query(request: String) -> String;
 }
 
 /// Off-wasm (unit tests on the host) there is no Extism host to call. Tests
@@ -21,8 +21,8 @@ extern "ExtismHost" {
 /// Fully qualified `std::result::Result`: the module-level `Result<T>` alias
 /// below would otherwise shadow it and take only one type parameter.
 #[cfg(not(target_arch = "wasm32"))]
-unsafe fn vanta_query(_request: String) -> std::result::Result<String, extism_pdk::Error> {
-    Err(extism_pdk::Error::msg("vanta_query unavailable off-wasm"))
+unsafe fn orbit_query(_request: String) -> std::result::Result<String, extism_pdk::Error> {
+    Err(extism_pdk::Error::msg("orbit_query unavailable off-wasm"))
 }
 
 #[derive(Debug)]
@@ -66,7 +66,7 @@ pub fn parse_response<T: for<'de> Deserialize<'de>>(raw: &str) -> Result<T> {
 }
 
 pub fn query<T: for<'de> Deserialize<'de>>(request: &str) -> Result<T> {
-    let raw = unsafe { vanta_query(request.to_string()) }
+    let raw = unsafe { orbit_query(request.to_string()) }
         .map_err(|e| TelemetryError::Host(e.to_string()))?;
     parse_response(&raw)
 }

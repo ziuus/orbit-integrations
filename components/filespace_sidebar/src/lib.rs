@@ -1,12 +1,12 @@
 use extism_pdk::*;
-use vanta_ext_sdk::{
+use orbit_ext_sdk::{
     ui::{Block, Color, Line, Span, Style, Widget},
     API_VERSION_TELEMETRY,
 };
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "filespace_sidebar",
         "FileSpace Sidebar Component",
         "0.1.0",
@@ -25,7 +25,7 @@ pub fn widgets(_: ()) -> FnResult<Vec<u8>> {
 #[plugin_fn]
 pub fn render_widget(widget_id: String) -> FnResult<Vec<u8>> {
     if widget_id != "filespace_sidebar" {
-        return Ok(vanta_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json());
+        return Ok(orbit_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json());
     }
 #[allow(clippy::vec_init_then_push)]
 

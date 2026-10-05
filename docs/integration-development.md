@@ -1,11 +1,11 @@
-# Vanta Integration Development — Engineering Handoff
+# Orbit Integration Development — Engineering Handoff
 
-Live working document for the `vanta-integrations` ecosystem. Update it before
+Live working document for the `orbit-integrations` ecosystem. Update it before
 ending any substantial work session. The repository and the running
 implementation are the source of truth; this file records **decisions,
 constraints and evidence** that are expensive to rediscover.
 
-Companion repo: `../vanta` (the host). Host version at time of audit: **0.10.25**.
+Companion repo: `../orbit` (the host). Host version at time of audit: **0.10.25**.
 
 ---
 
@@ -15,14 +15,14 @@ Companion repo: `../vanta` (the host). Host version at time of audit: **0.10.25*
 
 | Mechanism | Lives in | Data access | Distribution |
 |---|---|---|---|
-| **WASM extensions** (this repo) | `~/.config/vanta/extensions/*.wasm` | **None** (see 1.3) | `vanta ext install` from `registry.json` |
+| **WASM extensions** (this repo) | `~/.config/orbit/extensions/*.wasm` | **None** (see 1.3) | `orbit ext install` from `registry.json` |
 | **Custom widgets** (host feature) | `[[custom_widgets]]` in `config.toml` | Full: shell command + file reads, host-side | Not distributable; user config only |
 
 `src/custom/` in the host runs user-defined commands/file reads on the host and
 renders the result. It is *not* the extension system and is not installable.
 Do not confuse the two. Everything in this repo is the WASM path.
 
-### 1.2 WASM ABI (exact, from `vanta/src/extension/wasm.rs`)
+### 1.2 WASM ABI (exact, from `orbit/src/extension/wasm.rs`)
 
 A plugin is a `cdylib` for `wasm32-wasip1` exporting exactly three functions
 via `extism-pdk`:
@@ -35,7 +35,7 @@ via `extism-pdk`:
 
 `ExtensionMetadata` = `{id, name, author, version, api_version, description}`.
 
-Host load path (`vanta/src/main.rs`): scans `~/.config/vanta/extensions/`,
+Host load path (`orbit/src/main.rs`): scans `~/.config/orbit/extensions/`,
 constructs `WasmExtension::new(path)`, registers it **only if** the extension id
 appears in `config.toml` `[extensions] enabled = [...]`
 (`ExtensionManager::register`). Widgets are then placed by id in
@@ -62,7 +62,7 @@ Hard constraints baked into the host:
 ### 1.3 Host capability probe — what a plugin can actually reach
 
 Measured (not assumed) by loading a probe plugin through the host's own loader
-(`vanta/examples/probe_host.rs`, kept in the host repo for re-verification):
+(`orbit/examples/probe_host.rs`, kept in the host repo for re-verification):
 
 ```
 FS /proc/stat      ERR No such file or directory (os error 44)
@@ -111,10 +111,10 @@ The host *already samples* everything required, on its own sampler thread:
 - zero additional sampling cost (no duplicated collection),
 - consistent with the documented architecture rather than a replacement for it.
 
-Plan: add one host function to Vanta
+Plan: add one host function to Orbit
 
 ```
-vanta_query(request_json) -> response_json
+orbit_query(request_json) -> response_json
 ```
 
 so extensions read **real, already-collected** telemetry. Anything the host
@@ -124,11 +124,11 @@ extension (never invented).
 Versioning constraint discovered above: the gate accepts only `0.9*`, so the
 capability is introduced **without** bumping plugin `api_version` past `0.9.x`
 (plugins keep declaring `0.9.x`; capability is discovered at runtime by calling
-`vanta_query` and handling absence). This keeps existing `security` and
+`orbit_query` and handling absence). This keeps existing `security` and
 `crypto_coin` artifacts loading unchanged on new hosts, and new plugins
 degrade gracefully on old hosts.
 
-### 1.6 UI protocol (`vanta/src/protocol.rs`) — the whole vocabulary
+### 1.6 UI protocol (`orbit/src/protocol.rs`) — the whole vocabulary
 
 ```
 UiWidget = Paragraph { lines, block, wrap }
@@ -154,7 +154,7 @@ area size**, so widgets must be written to look correct at any size. This is a
 real constraint for the 80×24 requirement: prefer content that degrades by
 wrapping/truncating rather than art that assumes a width.
 
-### 1.7 Registry / distribution (`vanta/src/cli.rs`)
+### 1.7 Registry / distribution (`orbit/src/cli.rs`)
 
 `registry.json` at repo root, fetched raw from GitHub `main`:
 ```json
@@ -162,9 +162,9 @@ wrapping/truncating rather than art that assumes a width.
   "extensions": [ { "id","name","description","version","api_version",
                     "author","wasm_url","sha256" } ] }
 ```
-`vanta ext install <id>` downloads `wasm_url`, verifies **sha256** (hard fail on
+`orbit ext install <id>` downloads `wasm_url`, verifies **sha256** (hard fail on
 mismatch), rejects non-`0.9*` `api_version`, writes to
-`~/.config/vanta/extensions/<id>.wasm`. `vanta ext search`, `vanta ext update`
+`~/.config/orbit/extensions/<id>.wasm`. `orbit ext search`, `orbit ext update`
 also exist. Artifacts are committed to `artifacts/` in this repo and served via
 `raw.githubusercontent.com`.
 
@@ -174,20 +174,20 @@ entries match their artifacts (`sha256sum artifacts/*.wasm`).
 ### 1.8 Build & validation commands (verified working)
 
 ```bash
-# in vanta-integrations
+# in orbit-integrations
 cargo build --target wasm32-wasip1 --release     # target already installed
 sha256sum target/wasm32-wasip1/release/<name>.wasm
 
-# headless plugin inspection (in ../vanta) — NOTE: debug profile;
+# headless plugin inspection (in ../orbit) — NOTE: debug profile;
 # `--release` OOMs the machine because of lto="thin" + codegen-units=1
 cargo run --example probe_host -- /path/to/plugin.wasm
 
-# host validation (in ../vanta)
+# host validation (in ../orbit)
 cargo fmt --all -- --check && cargo clippy --all-targets -- -D warnings && cargo test
 ```
 
-Note the artifact name: `security/Cargo.toml` has `name = "vanta-security"`, so
-it builds `vanta_security.wasm` but is published as `artifacts/security.wasm`.
+Note the artifact name: `security/Cargo.toml` has `name = "orbit-security"`, so
+it builds `orbit_security.wasm` but is published as `artifacts/security.wasm`.
 The **file stem does not have to match the extension id** — the host reads the
 id from `metadata()`, not the filename.
 
@@ -227,9 +227,9 @@ id from `metadata()`, not the filename.
 
 | Component | Status | Data | Notes |
 |---|---|---|---|
-| host `vanta_query` | **shipped** (vanta `92d5fbc`) | real | 9 topics + capabilities; 88 host tests green |
-| host rounded borders | **shipped** (vanta `41482e5`) | — | extension panels now match native chrome |
-| `vanta-ext-sdk` | **shipped** (`8eff279`) | — | telemetry client, bounded history, UI primitives; 18 tests |
+| host `orbit_query` | **shipped** (orbit `92d5fbc`) | real | 9 topics + capabilities; 88 host tests green |
+| host rounded borders | **shipped** (orbit `41482e5`) | — | extension panels now match native chrome |
+| `orbit-ext-sdk` | **shipped** (`8eff279`) | — | telemetry client, bounded history, UI primitives; 18 tests |
 | `system_observatory` | **shipped** (`96698a1`) | **real** | 5 widgets; 8 tests; artifact + registry published |
 | `security` | shipped, v0.1.0 | **mock** | 1 widget `cve_feed`; unchanged, still hard-coded |
 | `crypto_coin` | shipped, v1.1.0 | none (pure math) | 1 widget `coin`; unchanged |
@@ -263,10 +263,10 @@ sha256 was verified against its committed artifact.
 Superseded by the capability audit in **§6**. Kept short here; §6.5 is the
 authoritative roadmap.
 
-- [x] **M1** Host `vanta_query` telemetry API + docs.
-- [x] **M2** `vanta-ext-sdk` — telemetry client, history, UI primitives.
+- [x] **M1** Host `orbit_query` telemetry API + docs.
+- [x] **M2** `orbit-ext-sdk` — telemetry client, history, UI primitives.
 - [x] **M3** `system_observatory` built and proven end-to-end — then **found to
-      duplicate native Vanta** (§6.4). To be reworked, not shipped.
+      duplicate native Orbit** (§6.4). To be reworked, not shipped.
 - [ ] **C0** Rework: strip the four duplicate widgets, keep `health.rs` +
       `state.rs`, drop the registry entry and artifact.
 - [ ] **C1** `sentinel` — thresholds, sustained breaches, incident timeline,
@@ -284,7 +284,7 @@ authoritative roadmap.
 ## 6. Capability-Gap Audit (supersedes the widget-driven roadmap)
 
 The roadmap was originally a **list of widgets**. That produced
-`system_observatory`, which on inspection is largely a re-skin of what Vanta
+`system_observatory`, which on inspection is largely a re-skin of what Orbit
 already ships. This section re-derives the roadmap from *capabilities* and
 records what is rejected and why, so the mistake is not repeated.
 
@@ -292,7 +292,7 @@ records what is rejected and why, so the mistake is not repeated.
 
 Every proposed extension must pass both:
 
-1. **Native test** — "could the user already get this from native Vanta?"
+1. **Native test** — "could the user already get this from native Orbit?"
    If yes, reject. A different layout, colour or data path is not a capability.
 2. **Custom-widget test** — "could the user already get this from a
    `[[custom_widgets]]` entry?" The host ships a user-facing escape hatch:
@@ -302,7 +302,7 @@ Every proposed extension must pass both:
    its place when it needs **logic**: state over time, cross-metric
    correlation, structure, or a workflow.
 
-### 6.2 What native Vanta already provides (verified in source)
+### 6.2 What native Orbit already provides (verified in source)
 
 * **Dashboard**: `system` (distro logo + os/host/kernel/uptime/shell/term/cpu/
   gpu/memory/battery), `gauges` (cpu/mem/bat rings), `cpu` (history graph +
@@ -325,14 +325,14 @@ Every proposed extension must pass both:
 * **Cross-cutting**: 8 themes, settings overlay, debug log page, custom
   widgets, extension loading.
 
-**Not present anywhere in native Vanta:** any notion of a **threshold, alert,
+**Not present anywhere in native Orbit:** any notion of a **threshold, alert,
 verdict, incident or event log**; any **history that outlives the process**;
 any **per-interface** network data; any **socket/connection** table; any
 **per-container** detail (only a count); any **git/project** awareness.
 
 ### 6.3 Capability matrix
 
-| Capability | Native Vanta | Existing extension | Proposed | Actual gap | Decision |
+| Capability | Native Orbit | Existing extension | Proposed | Actual gap | Decision |
 |---|---|---|---|---|---|
 | cpu/mem/disk/net values + trends | Dashboard + Monitor graphs | `system_observatory` (dup) | `system_observatory`, `resource_timeline`, `resource_flow` | **none** | **REMOVE** |
 | load average | `status` (1/5/15 + cores) | — | `load_history` | trend graph only; marginal | **REMOVE** (fold per-core normalisation into verdict logic) |
@@ -358,7 +358,7 @@ any **per-interface** network data; any **socket/connection** table; any
 
 ### 6.4 Verdict on `system_observatory`
 
-It **substantially duplicates native Vanta** and must not ship as-is.
+It **substantially duplicates native Orbit** and must not ship as-is.
 Four of its five widgets (`system_observatory`, `resource_timeline`,
 `resource_flow`, `load_history`) restate the Dashboard and Monitor pages.
 
@@ -368,7 +368,7 @@ Reusable, do **not** rewrite:
   This is the seed of the one genuinely new capability.
 * `system_observatory/src/state.rs` — the shared-snapshot + short-TTL cache
   pattern and its rationale (one host query per frame, panels cannot disagree).
-* `vanta-ext-sdk` in full — telemetry client, bounded history, UI primitives.
+* `orbit-ext-sdk` in full — telemetry client, bounded history, UI primitives.
 
 Discard: the four duplicate widget renderers in `lib.rs`, plus the registry
 entry and artifact (never pushed, so no user is affected).
@@ -377,7 +377,7 @@ entry and artifact (never pushed, so no user is affected).
 
 **C1 — `sentinel`: threshold watching, incidents and event correlation.**
 The only genuinely additive capability that is buildable **today** with the
-existing telemetry API. Native Vanta tells you what is happening *now*;
+existing telemetry API. Native Orbit tells you what is happening *now*;
 `sentinel` tells you *what changed, when, for how long, and what was running
 at the time*. Absorbs the roadmap's `event_stream`/`event_timeline`/
 `event_stats`. Needs no host change. Passes both rejection tests: stateful,
@@ -408,14 +408,14 @@ resource dashboards, duplicate process lists, duplicate network graphs,
 ## Resume Point
 
 **Last completed:**
-Capability-gap audit (§6). Verified native Vanta in source, then rejected the
+Capability-gap audit (§6). Verified native Orbit in source, then rejected the
 widget-driven roadmap and re-derived it from capabilities. Conclusion:
 `system_observatory` duplicates native monitoring in 4 of 5 widgets and must
-not ship as built; its `health.rs` is the seed of the one capability Vanta
+not ship as built; its `health.rs` is the seed of the one capability Orbit
 genuinely lacks.
 
-Earlier in the session: M1 host telemetry API (`vanta` `92d5fbc`), rounded
-borders (`vanta` `41482e5`), M2 SDK (`8eff279`), M3 system_observatory
+Earlier in the session: M1 host telemetry API (`orbit` `92d5fbc`), rounded
+borders (`orbit` `41482e5`), M2 SDK (`8eff279`), M3 system_observatory
 (`96698a1`), docs (`46d440d`).
 
 **Nothing is pushed.** Integrations is 4 commits ahead of origin, host 2.
@@ -447,7 +447,7 @@ C1, the new capability — `sentinel`:
   one-frame spike is not an alert); incidents open, persist and close with a
   duration; each transition emits an event; on open, snapshot the top
   processes from telemetry and keep them with the incident — that is the
-  correlation native Vanta cannot give.
+  correlation native Orbit cannot give.
 * Constraints already known: no host config reaches plugins (§1.3), so
   thresholds ship as sensible constants; history is bounded and dies with the
   process (no persistence — document it, do not fake durability); events must
@@ -466,7 +466,7 @@ C1, the new capability — `sentinel`:
 - `rustup target add wasm32-wasip1` reports a conflict but the target works.
 
 **Validation status (end of session, both repos clean):**
-- `cargo test -p vanta-ext-sdk` 18 passed; `-p system-observatory` 8 passed
+- `cargo test -p orbit-ext-sdk` 18 passed; `-p system-observatory` 8 passed
 - clippy clean on both new crates; `cargo fmt --all -- --check` clean
 - `cargo build --target wasm32-wasip1 --release` all crates build
 - registry sha256 verified against all three committed artifacts
@@ -482,7 +482,7 @@ C1, the new capability — `sentinel`:
   and sha256 in the same commit.
 
 **User's environment:**
-`~/.config/vanta/config.toml` was restored after the live test
+`~/.config/orbit/config.toml` was restored after the live test
 (`enabled = ["crypto_coin"]`, original layout). A stale
-`system_observatory.wasm` remains in `~/.config/vanta/extensions/` but is not
+`system_observatory.wasm` remains in `~/.config/orbit/extensions/` but is not
 enabled; delete it during C0.

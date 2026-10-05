@@ -33,11 +33,11 @@ pub fn widgets() -> FnResult<Vec<u8>> {
 
 #[extism_pdk::host_fn]
 extern "ExtismHost" {
-    fn vanta_query(input: String) -> String;
+    fn orbit_query(input: String) -> String;
 }
 
 fn get_cpu_temp() -> f64 {
-    if let Ok(res) = unsafe { vanta_query(r#"{"topic":"cpu"}"#.to_string()) } {
+    if let Ok(res) = unsafe { orbit_query(r#"{"topic":"cpu"}"#.to_string()) } {
         if let Ok(val) = serde_json::from_str::<serde_json::Value>(&res) {
             if let Some(max_temp) = val.get("data").and_then(|d| d.get("max_temp_c")).and_then(|v| v.as_f64()) {
                 return max_temp;
@@ -48,7 +48,7 @@ fn get_cpu_temp() -> f64 {
 }
 
 fn get_gpu_temp() -> f64 {
-    if let Ok(res) = unsafe { vanta_query(r#"{"topic":"gpu"}"#.to_string()) } {
+    if let Ok(res) = unsafe { orbit_query(r#"{"topic":"gpu"}"#.to_string()) } {
         if let Ok(val) = serde_json::from_str::<serde_json::Value>(&res) {
             if let Some(temp) = val.get("data").and_then(|d| d.get("temp_c")).and_then(|v| v.as_f64()) {
                 return temp;

@@ -33,7 +33,7 @@ pub fn widgets() -> FnResult<Vec<u8>> {
 
 #[extism_pdk::host_fn]
 extern "ExtismHost" {
-    fn vanta_query(input: String) -> String;
+    fn orbit_query(input: String) -> String;
 }
 
 #[plugin_fn]
@@ -42,7 +42,7 @@ pub fn render_widget(widget_id: String) -> FnResult<Vec<u8>> {
         let mut total = 0;
         let mut user = String::new();
         
-        if let Ok(res) = unsafe { vanta_query(r#"{"topic":"github"}"#.to_string()) } {
+        if let Ok(res) = unsafe { orbit_query(r#"{"topic":"github"}"#.to_string()) } {
             if let Ok(val) = serde_json::from_str::<serde_json::Value>(&res) {
                 if let Some(data) = val.get("data") {
                     if !data.is_null() {

@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 use extism_pdk::*;
 use serde::{Deserialize, Serialize};
-use vanta_ext_sdk::{
+use orbit_ext_sdk::{
     telemetry::query,
     ui::{unavailable, Block,  Line, Span,  Widget},
     API_VERSION_TELEMETRY,
@@ -26,10 +26,10 @@ pub struct State {
     pub all_tracks: Vec<Track>,
 }
 
-fn fetch_data() -> Result<State, vanta_ext_sdk::telemetry::TelemetryError> {
+fn fetch_data() -> Result<State, orbit_ext_sdk::telemetry::TelemetryError> {
     let req = serde_json::json!({ "topic": "media" });
     let val = query(&serde_json::to_string(&req).unwrap())?;
-    serde_json::from_value(val).map_err(|_| vanta_ext_sdk::telemetry::TelemetryError::Decode("bad media json".into()))
+    serde_json::from_value(val).map_err(|_| orbit_ext_sdk::telemetry::TelemetryError::Decode("bad media json".into()))
 }
 
 fn get_active(state: &State) -> Option<Track> {
@@ -52,7 +52,7 @@ fn format_dur(ms: u64) -> String {
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "mediadeck_signal",
         "MediaDeck Signal Component",
         "0.1.0",

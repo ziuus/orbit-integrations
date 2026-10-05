@@ -11,7 +11,7 @@
 
 use crate::health::Level;
 use crate::incident::{Config, Engine, Observation, ProcSample};
-use vanta_ext_sdk::telemetry::{Cpu, Disk, Memory, Process};
+use orbit_ext_sdk::telemetry::{Cpu, Disk, Memory, Process};
 
 /// (warn trigger, critical trigger, clear) for percentage metrics.
 const CPU: (f64, f64, f64) = (85.0, 95.0, 75.0);
@@ -325,7 +325,7 @@ impl Default for Watcher {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use vanta_ext_sdk::telemetry::Mount;
+    use orbit_ext_sdk::telemetry::Mount;
 
     fn cpu(usage: f64, load1: f64, cores: usize, temp: Option<f64>) -> Cpu {
         Cpu {

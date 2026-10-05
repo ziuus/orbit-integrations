@@ -1,9 +1,9 @@
-//! Shared SDK for Vanta WASM extensions.
+//! Shared SDK for Orbit WASM extensions.
 //!
 //! Three layers, deliberately separable so data acquisition can be tested and
 //! reasoned about independently of presentation:
 //!
-//! * [`telemetry`] — typed client for the host's `vanta_query` function.
+//! * [`telemetry`] — typed client for the host's `orbit_query` function.
 //! * [`history`] — bounded, wall-clock-throttled rolling buffers.
 //! * [`ui`] — protocol widgets plus the primitives (sparkline, bar, table)
 //!   that the host protocol does not provide.
@@ -32,11 +32,11 @@ pub struct ExtensionMetadata {
     pub description: String,
 }
 
-/// `api_version` for extensions that call `vanta_query`.
+/// `api_version` for extensions that call `orbit_query`.
 ///
 /// The host gate accepts only `0.9*`, so telemetry capability is signalled by
 /// the patch component rather than a major bump: `0.9.2` means "requires a
-/// host that provides the telemetry host function" (Vanta >= 0.10.26).
+/// host that provides the telemetry host function" (Orbit >= 0.10.26).
 pub const API_VERSION_TELEMETRY: &str = "0.9.2";
 
 /// `api_version` for self-contained extensions that import no host function

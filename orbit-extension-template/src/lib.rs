@@ -1,5 +1,5 @@
 use extism_pdk::*;
-use vanta_ext_sdk::{ui, FnResult, Widget};
+use orbit_ext_sdk::{ui, FnResult, Widget};
 use ratatui::{
     style::{Color, Style},
     text::Line,
@@ -31,12 +31,12 @@ fn build_my_widget(_w: u16, _h: u16) -> Widget {
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
-        "my_vanta_extension",
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
+        "my_orbit_extension",
         "My Extension",
         "0.1.0",
         "A custom WASM micro-extension",
-        vanta_ext_sdk::API_VERSION_TELEMETRY,
+        orbit_ext_sdk::API_VERSION_TELEMETRY,
     )
     .to_json())
 }
@@ -52,7 +52,7 @@ pub fn widgets(_: ()) -> FnResult<Vec<u8>> {
 pub fn render_widget(id: String) -> FnResult<Vec<u8>> {
     let widget = match id.as_str() {
         "my_widget" => build_my_widget(80, 24),
-        _ => return Ok(vanta_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
+        _ => return Ok(orbit_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
     };
     Ok(widget.to_json())
 }

@@ -1,17 +1,17 @@
 # Crypto Coin Extension
 
-A fun community extension that adds a rotating 3D ASCII coin to your Vanta dashboard.
+A fun community extension that adds a rotating 3D ASCII coin to your Orbit dashboard.
 
 ## Installation
 
 ```bash
-vanta install crypto_coin
-vanta enable crypto_coin
+orbit install crypto_coin
+orbit enable crypto_coin
 ```
 
 ## Adding to Dashboard
 
-Open your `~/.config/vanta/config.toml` and drop the `"coin"` widget ID into your dashboard layout array. For example, to replace the `gauges` widget:
+Open your `~/.config/orbit/config.toml` and drop the `"coin"` widget ID into your dashboard layout array. For example, to replace the `gauges` widget:
 
 ```toml
 [dashboard]

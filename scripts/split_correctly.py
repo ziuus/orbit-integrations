@@ -59,18 +59,18 @@ crate-type = ["cdylib"]
 extism-pdk = "1.4.1"
 serde = {{ version = "1.0", features = ["derive"] }}
 serde_json = "1.0"
-vanta-ext-sdk = {{ path = "../sdk" }}
+orbit-ext-sdk = {{ path = "../sdk" }}
 ''')
 
         tail = f'''
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {{
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "{new_crate}",
         "{parent.title()} {w.title()}",
         "0.1.0",
         "Micro-extension",
-        vanta_ext_sdk::API_VERSION_TELEMETRY,
+        orbit_ext_sdk::API_VERSION_TELEMETRY,
     )
     .to_json())
 }}
@@ -84,15 +84,15 @@ pub fn widgets(_: ()) -> FnResult<Vec<u8>> {{
 #[plugin_fn]
 pub fn render_widget(id: String) -> FnResult<Vec<u8>> {{
     if id != "{widget_id}" {{
-        return Ok(vanta_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json());
+        return Ok(orbit_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json());
     }}
     let widget = {func};
     Ok(widget.to_json())
 }}
 '''
         with open(f"{new_crate}/src/lib.rs", "w") as f:
-            if "vanta_ext_sdk::API_VERSION_TELEMETRY" not in "".join(base_lines):
-                f.write("use vanta_ext_sdk::API_VERSION_TELEMETRY;\n")
+            if "orbit_ext_sdk::API_VERSION_TELEMETRY" not in "".join(base_lines):
+                f.write("use orbit_ext_sdk::API_VERSION_TELEMETRY;\n")
             f.write("".join(base_lines) + tail)
 
     # We will remove the parent later

@@ -12,12 +12,12 @@
 //!
 //! The cache TTL is deliberately shorter than the host sampler interval, so
 //! the UI never lags behind real data, and history is throttled separately
-//! (see `vanta_ext_sdk::History`).
+//! (see `orbit_ext_sdk::History`).
 
 use std::cell::RefCell;
 
-use vanta_ext_sdk::history::{now_ms, History};
-use vanta_ext_sdk::telemetry::{self, Capabilities, Cpu, Disk, Memory, Network, Processes};
+use orbit_ext_sdk::history::{now_ms, History};
+use orbit_ext_sdk::telemetry::{self, Capabilities, Cpu, Disk, Memory, Network, Processes};
 
 /// Samples retained per metric. At one sample/second this is four minutes of
 /// history — more than any terminal panel can draw, and fixed size.

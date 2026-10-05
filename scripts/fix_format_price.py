@@ -1,6 +1,6 @@
 import re
 
-with open('/home/zius/Projects/vanta-integrations/cryptopulse/src/lib.rs', 'r') as f:
+with open('/home/zius/Projects/orbit-integrations/cryptopulse/src/lib.rs', 'r') as f:
     code = f.read()
 
 fixed = re.sub(
@@ -16,5 +16,5 @@ fixed = re.sub(
     flags=re.DOTALL
 )
 
-with open('/home/zius/Projects/vanta-integrations/cryptopulse/src/lib.rs', 'w') as f:
+with open('/home/zius/Projects/orbit-integrations/cryptopulse/src/lib.rs', 'w') as f:
     f.write(fixed)

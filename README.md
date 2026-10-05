@@ -1,6 +1,6 @@
-# Vanta Community Integrations 🧩
+# Orbit Community Integrations 🧩
 
-This repository contains community-contributed extensions, widgets, and pages for [Vanta](https://github.com/ziuus/vanta).
+This repository contains community-contributed extensions, widgets, and pages for [Orbit](https://github.com/ziuus/orbit).
 
 ---
 
@@ -10,22 +10,22 @@ This repository contains community-contributed extensions, widgets, and pages fo
 - `pages/` - Full-page WASM extensions or complete TOML dashboard layout templates.
 - `scenes/` - Full-screen background ambient renderers (e.g. `scene_starfield`).
 - `themes/` - Community-contributed theme definitions (TOML color palettes).
-- `sdk/` - The `vanta-ext-sdk` used to build WASM plugins.
+- `sdk/` - The `orbit-ext-sdk` used to build WASM plugins.
 - `scripts/` - Maintenance and build scripts.
 - `docs/` - Technical documentation.
 
 ## 🔒 Security & Trust Model
 
-**Vanta runs extensions as secure WebAssembly (WASM) modules.**
+**Orbit runs extensions as secure WebAssembly (WASM) modules.**
 
 Extensions are **sandboxed by default**. They cannot access your filesystem, network, or spawn processes. Instead, they interact with the host through highly constrained, safe JSON queries (e.g., `fs_list`, `media`, `state_get`).
 
 ## 🧱 The V2 Micro-Extension Architecture
 
-To maximize customization, Vanta integrations use a **Micro-Extension Pattern**. 
+To maximize customization, Orbit integrations use a **Micro-Extension Pattern**. 
 Instead of monolithic applications, **every single widget is its own independent `.wasm` file**. 
 
-If you want a File Manager, you don't install one massive plugin. You install the `filespace_browser`, `filespace_preview`, and `filespace_queue` micro-extensions, and lay them out on a page. Under the hood, they communicate via Vanta's secure **Host State Mailbox** (`state_get` / `state_set`).
+If you want a File Manager, you don't install one massive plugin. You install the `filespace_browser`, `filespace_preview`, and `filespace_queue` micro-extensions, and lay them out on a page. Under the hood, they communicate via Orbit's secure **Host State Mailbox** (`state_get` / `state_set`).
 
 ---
 
@@ -56,12 +56,12 @@ If you want a File Manager, you don't install one massive plugin. You install th
 Download the `.wasm` files (e.g., `filespace_browser.wasm`, `filespace_preview.wasm`) and place them in your extensions folder:
 
 ```bash
-mkdir -p ~/.config/vanta/extensions/
-cp *.wasm ~/.config/vanta/extensions/
+mkdir -p ~/.config/orbit/extensions/
+cp *.wasm ~/.config/orbit/extensions/
 ```
 
 ### Step 2: Enable & Place in `config.toml`
-Open your `~/.config/vanta/config.toml` and enable the extensions you want:
+Open your `~/.config/orbit/config.toml` and enable the extensions you want:
 
 ```toml
 [extensions]
@@ -79,13 +79,13 @@ layout = [
 ]
 ```
 
-That's it! Restart Vanta, and the extensions will load dynamically at runtime.
+That's it! Restart Orbit, and the extensions will load dynamically at runtime.
 
 ---
 
 ## 🚀 How to Build a WASM Micro-Extension
 
-We use `extism-pdk` and `vanta-ext-sdk`.
+We use `extism-pdk` and `orbit-ext-sdk`.
 
 ### 1. Create a cdylib Crate
 ```bash
@@ -101,15 +101,15 @@ crate-type = ["cdylib"]
 extism-pdk = "1.4"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-vanta-ext-sdk = { path = "../sdk" }
+orbit-ext-sdk = { path = "../sdk" }
 ```
 
-### 2. Implement the Vanta UI Protocol
+### 2. Implement the Orbit UI Protocol
 In `src/lib.rs`:
 
 ```rust
 use extism_pdk::*;
-use vanta_ext_sdk::{
+use orbit_ext_sdk::{
     telemetry::query,
     ui::{Widget, Block, Line, Span, Style, Color, unavailable},
 };

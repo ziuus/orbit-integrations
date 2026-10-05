@@ -2,9 +2,9 @@
 use extism_pdk::*;
 use std::cell::RefCell;
 use std::collections::{HashMap, HashSet};
-use vanta_ext_sdk::history::now_ms;
-use vanta_ext_sdk::telemetry::{self, ProcessTreeNode};
-use vanta_ext_sdk::ui::{Block, Color, Line, Span, Style, Widget};
+use orbit_ext_sdk::history::now_ms;
+use orbit_ext_sdk::telemetry::{self, ProcessTreeNode};
+use orbit_ext_sdk::ui::{Block, Color, Line, Span, Style, Widget};
 
 const REFRESH_MS: u64 = 1000;
 const ACTIVITY_RING: usize = 20;
@@ -611,12 +611,12 @@ fn build_activity(_width: u16, height: u16) -> Widget {
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "proctrace_main",
         "Proctrace Main",
         "0.1.0",
         "Micro-extension",
-        vanta_ext_sdk::API_VERSION_TELEMETRY,
+        orbit_ext_sdk::API_VERSION_TELEMETRY,
     )
     .to_json())
 }
@@ -632,7 +632,7 @@ pub fn render_widget(id: String) -> FnResult<Vec<u8>> {
     let widget = match id.as_str() {
         "proctrace" => build_proctrace(80, 24),
         "proctrace_activity" => build_activity(80, 24),
-        _ => return Ok(vanta_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
+        _ => return Ok(orbit_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
     };
     Ok(widget.to_json())
 }

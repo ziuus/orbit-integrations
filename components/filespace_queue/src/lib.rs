@@ -1,6 +1,6 @@
 use extism_pdk::*;
 use serde::{Deserialize, Serialize};
-use vanta_ext_sdk::{
+use orbit_ext_sdk::{
     telemetry::query,
     ui::{unavailable, Block, Color, Line, Span, Style, Widget},
     API_VERSION_TELEMETRY,
@@ -22,7 +22,7 @@ pub struct TaskProgress {
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "filespace_queue",
         "FileSpace Queue Component",
         "0.1.0",

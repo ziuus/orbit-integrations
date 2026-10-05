@@ -1,13 +1,13 @@
 use extism_pdk::*;
-use vanta_ext_sdk::{ui, Widget};
-use vanta_ext_sdk::ui::{Color, Style, Line, Span, Block};
+use orbit_ext_sdk::{ui, Widget};
+use orbit_ext_sdk::ui::{Color, Style, Line, Span, Block};
 use base64::{Engine as _, engine::general_purpose::STANDARD};
 use image::AnimationDecoder;
 use std::cell::RefCell;
 
 #[host_fn]
 extern "ExtismHost" {
-    fn vanta_query(input: String) -> String;
+    fn orbit_query(input: String) -> String;
 }
 
 thread_local! {
@@ -93,7 +93,7 @@ fn build_video_widget(w: u16, h: u16) -> Widget {
                 "topic": "fs_read",
                 "path": "/tmp/test.gif"
             });
-            match unsafe { vanta_query(req.to_string()) } {
+            match unsafe { orbit_query(req.to_string()) } {
                 Ok(res) => {
                     match serde_json::from_str::<serde_json::Value>(&res) {
                         Ok(val) => {
@@ -166,12 +166,12 @@ fn build_video_widget(w: u16, h: u16) -> Widget {
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "video_player",
         "Video Player",
         "0.1.0",
         "Plays /tmp/test.gif",
-        vanta_ext_sdk::API_VERSION_TELEMETRY,
+        orbit_ext_sdk::API_VERSION_TELEMETRY,
     )
     .to_json())
 }
@@ -186,7 +186,7 @@ pub fn widgets(_: ()) -> FnResult<Vec<u8>> {
 pub fn render_widget(id: String) -> FnResult<Vec<u8>> {
     let widget = match id.as_str() {
         "video_widget" => build_video_widget(80, 24),
-        _ => return Ok(vanta_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
+        _ => return Ok(orbit_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
     };
     Ok(widget.to_json())
 }

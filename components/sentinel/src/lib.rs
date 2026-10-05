@@ -1,6 +1,6 @@
-//! Sentinel — incident detection and correlation for Vanta.
+//! Sentinel — incident detection and correlation for Orbit.
 //!
-//! Native Vanta shows what is happening now. Sentinel answers the questions
+//! Native Orbit shows what is happening now. Sentinel answers the questions
 //! it cannot: did something abnormal start, when, is it still going, how bad
 //! did it get, what was running when it began, and when did it recover.
 //!
@@ -22,11 +22,11 @@ pub mod watch;
 use extism_pdk::*;
 use std::cell::RefCell;
 
-use vanta_ext_sdk::history::now_ms;
-use vanta_ext_sdk::telemetry::{self, Cpu, Disk, Memory, Process};
-use vanta_ext_sdk::ui::{self, Block, Color, Line, Style, Widget};
-use vanta_ext_sdk::viz;
-use vanta_ext_sdk::{ExtensionMetadata, API_VERSION_TELEMETRY};
+use orbit_ext_sdk::history::now_ms;
+use orbit_ext_sdk::telemetry::{self, Cpu, Disk, Memory, Process};
+use orbit_ext_sdk::ui::{self, Block, Color, Line, Style, Widget};
+use orbit_ext_sdk::viz;
+use orbit_ext_sdk::{ExtensionMetadata, API_VERSION_TELEMETRY};
 
 use health::Level;
 use incident::{Event, EventKind, Incident, State};
@@ -67,7 +67,7 @@ struct Store {
     error: Option<String>,
     started_ms: u64,
     /// Host capability report, fetched once.
-    caps: Option<vanta_ext_sdk::telemetry::Capabilities>,
+    caps: Option<orbit_ext_sdk::telemetry::Capabilities>,
     caps_done: bool,
 }
 

@@ -1,7 +1,7 @@
-//! UI construction for the Vanta protocol.
+//! UI construction for the Orbit protocol.
 //!
 //! The host protocol only has Paragraph, Gauge, List, Row and Column (see
-//! `vanta/src/protocol.rs`). There is no sparkline, chart or table primitive,
+//! `orbit/src/protocol.rs`). There is no sparkline, chart or table primitive,
 //! so everything denser than a gauge is composed here from styled text spans.
 //!
 //! Two constraints shape this module:

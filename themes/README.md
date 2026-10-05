@@ -1,2 +1,2 @@
-# Vanta Themes
-This directory contains community-contributed TOML themes for Vanta.
+# Orbit Themes
+This directory contains community-contributed TOML themes for Orbit.

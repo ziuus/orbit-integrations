@@ -2,7 +2,7 @@ use chrono::{Utc, TimeZone};
 use chrono_tz::Tz;
 use extism_pdk::*;
 use std::str::FromStr;
-use vanta_ext_sdk::{
+use orbit_ext_sdk::{
     ui, Block, Color, ExtensionMetadata, Line, Span, Style, Widget, API_VERSION_BASE,
 };
 

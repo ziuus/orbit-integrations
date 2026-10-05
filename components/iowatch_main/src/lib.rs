@@ -1,7 +1,7 @@
 #![allow(dead_code, unused_imports)]
 //! IOWatch — per-process I/O throughput with temporal history.
 //!
-//! Native Vanta shows aggregate disk stats. IOWatch answers the different
+//! Native Orbit shows aggregate disk stats. IOWatch answers the different
 //! question: **which processes are actually doing the I/O, and how is that
 //! changing over time?**
 //!
@@ -28,9 +28,9 @@
 use extism_pdk::*;
 use std::cell::RefCell;
 
-use vanta_ext_sdk::history::now_ms;
-use vanta_ext_sdk::telemetry::{self, IoSnapshot};
-use vanta_ext_sdk::ui::{self, Block, Color, Line, Style, Table, Widget};
+use orbit_ext_sdk::history::now_ms;
+use orbit_ext_sdk::telemetry::{self, IoSnapshot};
+use orbit_ext_sdk::ui::{self, Block, Color, Line, Style, Table, Widget};
 
 
 
@@ -503,12 +503,12 @@ fn build_io_activity(w: u16, h: u16) -> Widget {
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "iowatch_main",
         "Iowatch Main",
         "0.1.0",
         "Micro-extension",
-        vanta_ext_sdk::API_VERSION_TELEMETRY,
+        orbit_ext_sdk::API_VERSION_TELEMETRY,
     )
     .to_json())
 }
@@ -525,7 +525,7 @@ pub fn render_widget(id: String) -> FnResult<Vec<u8>> {
         "iowatch" => build_iowatch(80, 24),
         "io_top" => build_io_top(80, 24),
         "io_activity" => build_io_activity(80, 24),
-        _ => return Ok(vanta_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
+        _ => return Ok(orbit_ext_sdk::ui::unavailable("UNKNOWN", "invalid widget").to_json()),
     };
     Ok(widget.to_json())
 }

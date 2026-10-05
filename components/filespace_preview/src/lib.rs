@@ -1,6 +1,6 @@
 use extism_pdk::*;
 use serde::{Deserialize, Serialize};
-use vanta_ext_sdk::{
+use orbit_ext_sdk::{
     telemetry::{query, TelemetryError},
     ui::{unavailable, Block, Color, Line, Span, Style, Widget},
     API_VERSION_TELEMETRY,
@@ -52,7 +52,7 @@ fn get_shared_state() -> SharedState {
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
-    Ok(vanta_ext_sdk::ExtensionMetadata::new(
+    Ok(orbit_ext_sdk::ExtensionMetadata::new(
         "filespace_preview",
         "FileSpace Preview Component",
         "0.1.0",

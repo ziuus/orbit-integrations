@@ -1,6 +1,6 @@
 use extism_pdk::*;
 use std::cell::RefCell;
-use vanta_ext_sdk::{
+use orbit_ext_sdk::{
     ui::{self, Block, Color, Line, Span, Style, Widget},
     ExtensionMetadata,
 };
@@ -267,7 +267,7 @@ pub fn metadata() -> FnResult<Vec<u8>> {
         name: "Rosary".into(),
         author: "zius".into(),
         version: "0.1.0".into(),
-        api_version: "0.9.2".into(), // requires vanta_query
+        api_version: "0.9.2".into(), // requires orbit_query
         description: "Interactive Rosary".into(),
     }.to_json())
 }
@@ -331,7 +331,7 @@ pub fn render_widget(id: String) -> FnResult<Vec<u8>> {
         if !*done {
             #[derive(serde::Deserialize)]
             struct TimeData { weekday: String }
-            if let Ok(time_data) = vanta_ext_sdk::telemetry::query::<TimeData>(r#"{"topic":"time"}"#) {
+            if let Ok(time_data) = orbit_ext_sdk::telemetry::query::<TimeData>(r#"{"topic":"time"}"#) {
                 let myst = match time_data.weekday.as_str() {
                     "Monday" | "Saturday" => Mystery::Joyful,
                     "Tuesday" | "Friday" => Mystery::Sorrowful,

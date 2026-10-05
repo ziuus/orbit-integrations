@@ -1,8 +1,8 @@
 [package]
-name = "my_vanta_extension"
+name = "my_orbit_extension"
 version = "0.1.0"
 edition = "2021"
-description = "A custom WASM micro-extension for Vanta"
+description = "A custom WASM micro-extension for Orbit"
 license = "MIT"
 
 [lib]
@@ -12,4 +12,4 @@ crate-type = ["cdylib"]
 extism-pdk = "1.4"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-vanta-ext-sdk = { git = "https://github.com/ziuus/vanta-integrations.git" }
+orbit-ext-sdk = { path = "../sdk" }

@@ -1,8 +1,8 @@
 [package]
-name = "vanta-ext-sdk"
+name = "orbit-ext-sdk"
 version = "0.1.0"
 edition = "2021"
-description = "Shared SDK for Vanta WASM extensions: host telemetry client, bounded history, and terminal UI primitives"
+description = "Shared SDK for Orbit WASM extensions: host telemetry client, bounded history, and terminal UI primitives"
 license = "MIT"
 
 [dependencies]
