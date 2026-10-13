@@ -1,147 +1,131 @@
 # Orbit Community Integrations 🧩
 
-This repository contains community-contributed extensions, widgets, and pages for [Orbit](https://github.com/ziuus/orbit).
+Official extension registry and templates for [Orbit](https://github.com/ziuus/orbit-tui).
 
 ---
 
-## 📂 Repository Structure
+## 🚀 Quick Access Tutorial: Using Extensions
 
-- `components/` - Standalone widgets and UI components (e.g. `dashboard_github`, `filespace_browser`).
-- `pages/` - Full-page WASM extensions or complete TOML dashboard layout templates.
-- `scenes/` - Full-screen background ambient renderers (e.g. `scene_starfield`).
-- `themes/` - Community-contributed theme definitions (TOML color palettes).
-- `sdk/` - The `orbit-ext-sdk` used to build WASM plugins.
-- `scripts/` - Maintenance and build scripts.
-- `docs/` - Technical documentation.
-
-## 🔒 Security & Trust Model
-
-**Orbit runs extensions as secure WebAssembly (WASM) modules.**
-
-Extensions are **sandboxed by default**. They cannot access your filesystem, network, or spawn processes. Instead, they interact with the host through highly constrained, safe JSON queries (e.g., `fs_list`, `media`, `state_get`).
-
-## 🧱 The V2 Micro-Extension Architecture
-
-To maximize customization, Orbit integrations use a **Micro-Extension Pattern**. 
-Instead of monolithic applications, **every single widget is its own independent `.wasm` file**. 
-
-If you want a File Manager, you don't install one massive plugin. You install the `filespace_browser`, `filespace_preview`, and `filespace_queue` micro-extensions, and lay them out on a page. Under the hood, they communicate via Orbit's secure **Host State Mailbox** (`state_get` / `state_set`).
-
----
-
-## 📦 Available Integrations
-
-### Tier 1: Deep Observability
-| Extension | Description |
-| :--- | :--- |
-| **`sentinel`** | Anomaly detection & persistence tracking graph. |
-| **`iowatch`** | Process-level disk I/O attribution and history. |
-| **`portwatch`** | Open ports and their owning processes. |
-| **`netscope`** | Live socket tracking (who is talking to whom). |
-| **`proctrace`** | Hierarchical process ancestry trees. |
-| **`servicewatch`** | Systemd service lifecycles and failures. |
-
-### Tier 2: Micro-Extension Apps
-| Application | Micro-Extensions (WASM crates) | Description |
-| :--- | :--- | :--- |
-| **CryptoPulse** | `cryptopulse`, `crypto_coin` | Live cryptocurrency market terminals and 3D coin rendering. |
-| **MediaDeck** | `mediadeck` *(pending V2 split)* | Full MPRIS/DBus audio workstation (visualizers, players). |
-| **FileSpace** | `filespace_browser`, `filespace_preview`, `filespace_sidebar`, `filespace_queue`, `filespace_path` | A complete, native-feeling terminal file manager with safe background operations. |
-
----
-
-## 🛠️ How to Install
-
-### Step 1: Download the Modules
-Download the `.wasm` files (e.g., `filespace_browser.wasm`, `filespace_preview.wasm`) and place them in your extensions folder:
+Install verified extensions instantly from the command line:
 
 ```bash
-mkdir -p ~/.config/orbit/extensions/
-cp *.wasm ~/.config/orbit/extensions/
+# 1. Search or browse available extensions
+orbit browse
+
+# 2. Install any extension (e.g. 3D Crypto Coin)
+orbit install crypto_coin
+
+# 3. Enable in ~/.config/orbit/config.toml
+orbit enable crypto_coin
 ```
 
-### Step 2: Enable & Place in `config.toml`
-Open your `~/.config/orbit/config.toml` and enable the extensions you want:
+Drop the extension's widget ID (e.g. `"coin"`) into your `~/.config/orbit/config.toml` dashboard layout:
 
 ```toml
-[extensions]
-enabled = [
-  "filespace_browser",
-  "filespace_preview",
-  "filespace_sidebar"
-]
-
-# Build your custom workspace using the widget IDs
-[[pages]]
-name = "File Space"
+[dashboard]
 layout = [
-    ["filespace_sidebar", "filespace_browser", "filespace_preview"]
+    ["system", "coin", "cpu", "storage"],
+    ["clock", "media", "processes", "network"],
+    ["weather", "calendar", "upnext", "status"]
 ]
 ```
 
-That's it! Restart Orbit, and the extensions will load dynamically at runtime.
+Restart Orbit or press `L` to refresh your layout!
 
 ---
 
-## 🚀 How to Build a WASM Micro-Extension
+## 📁 Ready-to-Use Templates
 
-We use `extism-pdk` and `orbit-ext-sdk`.
+This repository provides starter templates for every extension type:
 
-### 1. Create a cdylib Crate
+| Type | Directory | Description |
+| :--- | :--- | :--- |
+| **Component (Widget)** | [`templates/component/`](templates/component/) | Rust WASM micro-extension exporting `metadata`, `widgets`, and `render_widget`. |
+| **Page (Workspace)** | [`templates/page/`](templates/page/) | Multi-column responsive dashboard layout (`page.toml`). |
+| **Theme (Palette)** | [`templates/theme/`](templates/theme/) | Custom 9-color hex palette definition (`theme.toml`). |
+
+---
+
+## 🛠️ Developer Tutorial: Building a Component Extension
+
+### 1. Scaffold from the Template
 ```bash
-cargo new --lib my-extension
+git clone https://github.com/ziuus/orbit-integrations
+cp -r orbit-integrations/templates/component my-extension
+cd my-extension
 ```
 
-Add this to your `Cargo.toml`:
-```toml
-[lib]
-crate-type = ["cdylib"]
-
-[dependencies]
-extism-pdk = "1.4"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-orbit-ext-sdk = { path = "../sdk" }
-```
-
-### 2. Implement the Orbit UI Protocol
+### 2. Implement Your Widget
 In `src/lib.rs`:
-
 ```rust
 use extism_pdk::*;
-use orbit_ext_sdk::{
-    telemetry::query,
-    ui::{Widget, Block, Line, Span, Style, Color, unavailable},
-};
-
-#[plugin_fn]
-pub fn widgets(_: ()) -> FnResult<Vec<u8>> {
-    Ok(serde_json::to_vec(&vec!["my_widget"])?)
-}
+use orbit_ext_sdk::ui::{span, Block, Color, Line, Style, Widget};
 
 #[plugin_fn]
 pub fn render_widget(id: String) -> FnResult<Vec<u8>> {
-    if id == "my_widget" {
-        let widget = Widget::paragraph(vec![]).block(Block::titled(" MY WIDGET "));
-        Ok(widget.to_json())
-    } else {
-        Ok(unavailable("UNKNOWN", "Invalid widget id").to_json())
-    }
+    let mut lines = Vec::new();
+    lines.push(Line::new(vec![
+        span("Hello from ", Style::default()),
+        span("Orbit WASM!", Style::fg(Color::GREEN).bold()),
+    ]));
+
+    let widget = Widget::paragraph(lines).block(Block::titled(" MY WIDGET ".to_string()));
+    Ok(widget.to_json())
 }
 ```
 
-### 3. State Mailbox (Inter-Extension Communication)
-Because each widget is a separate sandboxed `.wasm` file, they share data via the host mailbox:
+### 3. Test Locally in Orbit (No Publishing Needed)
+Compile and symlink your widget into your local Orbit configuration:
 
-**Writer (e.g., a Browser list):**
-```rust
-let req = serde_json::json!({ "topic": "state_set", "key": "selected_file", "value": "/etc/hosts" });
-let _ = query::<serde_json::Value>(&req.to_string());
+```bash
+cargo build --target wasm32-unknown-unknown --release
+orbit link target/wasm32-unknown-unknown/release/my_extension.wasm
 ```
 
-**Reader (e.g., a Preview pane):**
-```rust
-let req = serde_json::json!({ "topic": "state_get", "key": "selected_file" });
-let val = query::<serde_json::Value>(&req.to_string())?;
-// Parse the value and render...
-```
+Add `"my_extension"` to `[extensions] enabled` in `~/.config/orbit/config.toml` and open Orbit.
+
+---
+
+## 🎨 Developer Tutorial: Custom Themes
+
+1. Copy [`templates/theme/theme.toml`](templates/theme/theme.toml) to `~/.config/orbit/themes/neon.toml`.
+2. Edit the 9 palette keys:
+   ```toml
+   bg        = "#140a24"
+   accent    = "#ff007f"
+   secondary = "#00f5d4"
+   surface   = "#221338"
+   text      = "#f5e6ff"
+   dim       = "#7f6596"
+   green     = "#00f5d4"
+   yellow    = "#ffbe0b"
+   red       = "#ff0055"
+   ```
+3. In Orbit, press `T` to cycle until your theme activates, or set `ui.theme = "neon"` in `config.toml`.
+
+---
+
+## 📤 Publishing to the Registry
+
+To make your extension available for `orbit install <your_id>`:
+
+1. Fork this repository.
+2. Build your `.wasm` binary (`cargo build --target wasm32-unknown-unknown --release`).
+3. Compute the SHA-256 hash: `sha256sum my_extension.wasm`.
+4. Add your entry to `registry.json`:
+   ```json
+   {
+       "id": "my_extension",
+       "name": "My Extension",
+       "description": "Short description of what it renders.",
+       "version": "0.1.0",
+       "api_version": "0.10.0",
+       "author": "your_handle",
+       "wasm_url": "https://raw.githubusercontent.com/your_handle/my-extension/main/artifacts/my_extension.wasm",
+       "sha256": "<computed_sha256_hash>",
+       "type": "component",
+       "components": [],
+       "layout": []
+   }
+   ```
+5. Submit a Pull Request! Once merged, all Orbit users can install it immediately.
