@@ -85,13 +85,29 @@ impl<const N: usize> History<N> {
     }
 }
 
-/// Milliseconds since the epoch. `SystemTime` is one of the few host
-/// facilities that works inside the sandbox (verified by capability probe).
+/// Milliseconds since the epoch.
+/// On wasm32, queries the host `time` topic to prevent panicking on `wasm32-unknown-unknown`.
 pub fn now_ms() -> u64 {
-    std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .map(|d| d.as_millis() as u64)
-        .unwrap_or(0)
+    #[cfg(target_arch = "wasm32")]
+    {
+        crate::telemetry::query::<serde_json::Value>("time")
+            .ok()
+            .and_then(|v| {
+                v.get("timestamp_ms").and_then(|t| t.as_u64()).or_else(|| {
+                    v.get("timestamp")
+                        .and_then(|t| t.as_u64())
+                        .map(|s| s * 1000)
+                })
+            })
+            .unwrap_or(0)
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_millis() as u64)
+            .unwrap_or(0)
+    }
 }
 
 #[cfg(test)]

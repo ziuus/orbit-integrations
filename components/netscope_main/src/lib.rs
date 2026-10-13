@@ -1,10 +1,10 @@
 #![allow(dead_code, unused_imports)]
 use extism_pdk::*;
-use std::cell::RefCell;
-use std::collections::{HashMap, HashSet};
 use orbit_ext_sdk::history::now_ms;
 use orbit_ext_sdk::telemetry::{self, ConnectionEntry};
 use orbit_ext_sdk::ui::{Block, Color, Line, Span, Style, Widget};
+use std::cell::RefCell;
+use std::collections::{HashMap, HashSet};
 
 const REFRESH_MS: u64 = 800;
 const ACTIVITY_RING: usize = 20;
@@ -409,7 +409,6 @@ fn build_netscope(
     Widget::paragraph(lines).block(Block::titled(title.to_string()))
 }
 
-
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
     Ok(orbit_ext_sdk::ExtensionMetadata::new(
@@ -424,7 +423,12 @@ pub fn metadata() -> FnResult<Vec<u8>> {
 
 #[plugin_fn]
 pub fn widgets(_: ()) -> FnResult<Vec<u8>> {
-    let ids = serde_json::json!(["netscope", "netscope_table", "netscope_summary", "netscope_activity"]);
+    let ids = serde_json::json!([
+        "netscope",
+        "netscope_table",
+        "netscope_summary",
+        "netscope_activity"
+    ]);
     Ok(serde_json::to_vec(&ids).unwrap_or_default())
 }
 

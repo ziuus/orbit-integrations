@@ -570,7 +570,6 @@ fn build_port_activity(w: u16, h: u16) -> Widget {
 
 // ── Plugin exports ────────────────────────────────────────────────────────────
 
-
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
     Ok(orbit_ext_sdk::ExtensionMetadata::new(

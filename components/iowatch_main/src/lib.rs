@@ -32,10 +32,6 @@ use orbit_ext_sdk::history::now_ms;
 use orbit_ext_sdk::telemetry::{self, IoSnapshot};
 use orbit_ext_sdk::ui::{self, Block, Color, Line, Style, Table, Widget};
 
-
-
-
-
 /// How many processes to request from the host (ranked by total_bps desc).
 const FETCH_LIMIT: usize = 15;
 /// Maximum number of processes tracked in history.
@@ -499,7 +495,6 @@ fn build_io_activity(w: u16, h: u16) -> Widget {
 }
 
 // ── Plugin exports ────────────────────────────────────────────────────────────
-
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {

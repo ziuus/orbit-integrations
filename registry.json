@@ -42,7 +42,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/sentinel.wasm",
-            "sha256": "ceab5e74f78bb791a39cd4c48d40b012e806f4aaedad3a01ec327ef940a15382",
+            "sha256": "e1fa29109664d0d577f31cbc8ab1c0413c696b0b9a87ec974e39975f68d85b02",
             "type": "component",
             "components": [],
             "layout": []
@@ -55,7 +55,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/iowatch_main.wasm",
-            "sha256": "0386d61a8c5661a6a25114bf6eb941c9eb6c2acca2eff18c22a07fa38c2693b9",
+            "sha256": "141a021ced46850a54823da61f4a3a2636378e1931553108b34563585c376f4c",
             "type": "component",
             "components": [],
             "layout": []
@@ -68,7 +68,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/netscope_main.wasm",
-            "sha256": "2bf76ffe5893e306af46db5e8276e70b9d3cb08848be18bc297a525ef070bfc8",
+            "sha256": "ebc699b82c6a0821365cf0620b382aa05ecc0c98d3dcf9aa289e92cfc91a8019",
             "type": "component",
             "components": [],
             "layout": []
@@ -81,7 +81,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/portwatch_main.wasm",
-            "sha256": "de57a9d93066208c1acc4e96e6dcd958cb4f877091b6f988d010952a9164f3b7",
+            "sha256": "cdc871396e96025ac1617dbec79673267f7b78aac4950a3189fe2646d3439c73",
             "type": "component",
             "components": [],
             "layout": []
@@ -94,7 +94,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/proctrace_main.wasm",
-            "sha256": "0a0ede3a289fb25e2a38d7a89a8c8c411b22c2812954e4b0344ead617d5ec719",
+            "sha256": "813a0d5ba5ca781b39b680e5c8df2057c106816725d9fba022310531a684a985",
             "type": "component",
             "components": [],
             "layout": []
@@ -107,7 +107,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/servicewatch_main.wasm",
-            "sha256": "78a070eabdd10c9d8149cd4b2f02920afd8c1cbd4af6aea91a232e250122383c",
+            "sha256": "88ac760f59cd3a29a65d0309334bb1ec1452235e6591362f2049cd81e1bbba8c",
             "type": "component",
             "components": [],
             "layout": []

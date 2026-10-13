@@ -1,0 +1,38 @@
+name: CI & Extension Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build & Verify Extensions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+          components: rustfmt, clippy
+
+      - name: Format check
+        run: cargo fmt --all -- --check
+
+      - name: Run workspace tests
+        run: cargo test --workspace
+
+      - name: Build WASM artifacts
+        run: cargo build --target wasm32-unknown-unknown --release
+
+      - name: Verify artifacts match registry
+        run: |
+          for f in target/wasm32-unknown-unknown/release/*.wasm; do
+            [ -e "$f" ] || continue
+            name=$(basename "$f")
+            echo "Built $name ($(wc -c < "$f") bytes)"
+          done

@@ -1,10 +1,10 @@
 #![allow(dead_code, unused_imports)]
 use extism_pdk::*;
-use std::cell::RefCell;
-use std::collections::{HashMap, HashSet};
 use orbit_ext_sdk::history::now_ms;
 use orbit_ext_sdk::telemetry::{self, ServiceNode};
 use orbit_ext_sdk::ui::{Block, Color, Line, Span, Style, Widget};
+use std::cell::RefCell;
+use std::collections::{HashMap, HashSet};
 
 const REFRESH_MS: u64 = 2000;
 const ACTIVITY_RING: usize = 20;
@@ -356,7 +356,6 @@ fn build_activity(_width: u16, height: u16) -> Widget {
 
     Widget::paragraph(lines).block(Block::titled(" SERVICE ACTIVITY ".to_string()))
 }
-
 
 #[plugin_fn]
 pub fn metadata() -> FnResult<Vec<u8>> {
