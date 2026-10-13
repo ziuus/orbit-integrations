@@ -1,8 +1,8 @@
 [workspace]
 members = [
     "components/*",
-    "pages/*",
-    "themes/*",
+    "orbit-extension-template",
+    "templates/component",
     "sdk"
 ]
 resolver = "2"

@@ -1,10 +1,5 @@
 use extism_pdk::*;
-use orbit_ext_sdk::{ui, FnResult, Widget};
-use ratatui::{
-    style::{Color, Style},
-    text::Line,
-    widgets::Block,
-};
+use orbit_ext_sdk::ui::{span, Block, Color, Line, Style, Widget};
 
 // ── Dummy State / Storage ─────────────────────────────────────────────────────
 
@@ -16,12 +11,12 @@ use ratatui::{
 
 fn build_my_widget(_w: u16, _h: u16) -> Widget {
     let mut lines = Vec::new();
-    
+
     lines.push(Line::new(vec![
-        ui::span("Hello from ", Style::default()),
-        ui::span("WASM!", Style::fg(Color::GREEN).bold()),
+        span("Hello from ", Style::default()),
+        span("WASM!", Style::fg(Color::GREEN).bold()),
     ]));
-    
+
     lines.push(Line::text("Edit src/lib.rs to change this.", Style::dim()));
 
     Widget::paragraph(lines).block(Block::titled(" MY EXTENSION ".to_string()))

@@ -1,0 +1,13 @@
+# Orbit Custom Theme Template
+# Save this file to `~/.config/orbit/themes/<theme_name>.toml` (e.g. `~/.config/orbit/themes/neon.toml`).
+# Activate it in Orbit by pressing 'T' or setting `ui.theme = "neon"` in `config.toml`.
+
+bg        = "#140a24"
+accent    = "#ff007f"
+secondary = "#00f5d4"
+surface   = "#221338"
+text      = "#f5e6ff"
+dim       = "#7f6596"
+green     = "#00f5d4"
+yellow    = "#ffbe0b"
+red       = "#ff0055"

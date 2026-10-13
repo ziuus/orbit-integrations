@@ -1,0 +1,25 @@
+# Orbit Custom Page Template
+# Save this configuration block in your `~/.config/orbit/config.toml` under `[[pages]]`.
+
+[[pages]]
+name = "My Dashboard Page"
+layout = [
+    # Column 1
+    [
+        "system",
+        "cpu",
+        "memory"
+    ],
+    # Column 2
+    [
+        "clock",
+        "coin",
+        "media"
+    ],
+    # Column 3
+    [
+        "network",
+        "storage",
+        "weather"
+    ]
+]

@@ -2,112 +2,14 @@
     "api_version": "0.10.0",
     "extensions": [
         {
-            "id": "page_observability",
-            "name": "System Sentry & Deep Observability",
-            "description": "Deep kernel & process observability suite. Includes Sentinel security anomaly detector, IOWatch disk attribution, NetScope socket tracking, PortWatch listening ports, ProcTrace ancestry tree, and ServiceWatch systemd monitor.",
-            "version": "0.1.0",
+            "id": "crypto_coin",
+            "name": "3D Rotating Coin",
+            "description": "High-detail mathematically rendered 3D crypto coin with realistic phong shading and reeded rim.",
+            "version": "1.1.0",
             "api_version": "0.10.0",
             "author": "zius",
-            "wasm_url": "",
-            "sha256": "",
-            "type": "page",
-            "components": [
-                "sentinel",
-                "iowatch_main",
-                "netscope_main",
-                "portwatch_main",
-                "proctrace_main",
-                "servicewatch_main"
-            ],
-            "layout": [
-                [
-                    "sentinel",
-                    "iowatch_main"
-                ],
-                [
-                    "netscope_main",
-                    "portwatch_main"
-                ],
-                [
-                    "proctrace_main",
-                    "servicewatch_main"
-                ]
-            ]
-        },
-        {
-            "id": "sentinel",
-            "name": "Sentinel System Sentry",
-            "description": "Anomaly detection, incident tracking, and health metrics engine.",
-            "version": "0.1.0",
-            "api_version": "0.10.0",
-            "author": "zius",
-            "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/sentinel.wasm",
-            "sha256": "e1fa29109664d0d577f31cbc8ab1c0413c696b0b9a87ec974e39975f68d85b02",
-            "type": "component",
-            "components": [],
-            "layout": []
-        },
-        {
-            "id": "iowatch_main",
-            "name": "IOWatch",
-            "description": "Process disk I/O monitoring, throughput tracking, top I/O leaderboard, and activity timeline.",
-            "version": "0.1.0",
-            "api_version": "0.10.0",
-            "author": "zius",
-            "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/iowatch_main.wasm",
-            "sha256": "141a021ced46850a54823da61f4a3a2636378e1931553108b34563585c376f4c",
-            "type": "component",
-            "components": [],
-            "layout": []
-        },
-        {
-            "id": "netscope_main",
-            "name": "NetScope",
-            "description": "Live socket network connection tracking, bandwidth monitor, connection table, and activity stream.",
-            "version": "0.1.0",
-            "api_version": "0.10.0",
-            "author": "zius",
-            "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/netscope_main.wasm",
-            "sha256": "ebc699b82c6a0821365cf0620b382aa05ecc0c98d3dcf9aa289e92cfc91a8019",
-            "type": "component",
-            "components": [],
-            "layout": []
-        },
-        {
-            "id": "portwatch_main",
-            "name": "PortWatch",
-            "description": "Active listening port monitor, socket ownership inspector, and port lifecycle events.",
-            "version": "0.1.0",
-            "api_version": "0.10.0",
-            "author": "zius",
-            "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/portwatch_main.wasm",
-            "sha256": "cdc871396e96025ac1617dbec79673267f7b78aac4950a3189fe2646d3439c73",
-            "type": "component",
-            "components": [],
-            "layout": []
-        },
-        {
-            "id": "proctrace_main",
-            "name": "ProcTrace",
-            "description": "Process ancestry hierarchy tree, lifecycle tracker, and fork/exec activity timeline.",
-            "version": "0.1.0",
-            "api_version": "0.10.0",
-            "author": "zius",
-            "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/proctrace_main.wasm",
-            "sha256": "813a0d5ba5ca781b39b680e5c8df2057c106816725d9fba022310531a684a985",
-            "type": "component",
-            "components": [],
-            "layout": []
-        },
-        {
-            "id": "servicewatch_main",
-            "name": "ServiceWatch",
-            "description": "Systemd service status, state transitions, units inspector, and failure history.",
-            "version": "0.1.0",
-            "api_version": "0.10.0",
-            "author": "zius",
-            "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/servicewatch_main.wasm",
-            "sha256": "88ac760f59cd3a29a65d0309334bb1ec1452235e6591362f2049cd81e1bbba8c",
+            "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/crypto_coin.wasm",
+            "sha256": "9b2f18f0684fca9e86b5eec0cb22abfd37f83901809c0dbcf9f5d230c82dec5b",
             "type": "component",
             "components": [],
             "layout": []
