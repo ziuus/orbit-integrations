@@ -139,7 +139,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/sentinel.wasm",
-            "sha256": "116d74e07bdde5942ce2bd7c2a4fb0b2b89d837edeaa48fd4d1a0ff42a7c10b4",
+            "sha256": "ceab5e74f78bb791a39cd4c48d40b012e806f4aaedad3a01ec327ef940a15382",
             "type": "component",
             "components": [],
             "layout": []
@@ -152,7 +152,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/iowatch_main.wasm",
-            "sha256": "7f404d6b76ad5a6474614ef45af06a61f615a90ca4c22293464713f0796dbfce",
+            "sha256": "0386d61a8c5661a6a25114bf6eb941c9eb6c2acca2eff18c22a07fa38c2693b9",
             "type": "component",
             "components": [],
             "layout": []
@@ -165,7 +165,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/netscope_main.wasm",
-            "sha256": "4216790aa70b62b88a23026b219274739fd8d4ac2b7ae8065d545b5b5cd593f3",
+            "sha256": "2bf76ffe5893e306af46db5e8276e70b9d3cb08848be18bc297a525ef070bfc8",
             "type": "component",
             "components": [],
             "layout": []
@@ -178,7 +178,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/portwatch_main.wasm",
-            "sha256": "b5f5cec465ec531fe58f164434e6279ab7d08196fdf7310c4620b0283b360bea",
+            "sha256": "de57a9d93066208c1acc4e96e6dcd958cb4f877091b6f988d010952a9164f3b7",
             "type": "component",
             "components": [],
             "layout": []
@@ -191,7 +191,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/proctrace_main.wasm",
-            "sha256": "c90ecacd59212684072e049fea9aae8e929277005262d9551ea5b42062719a57",
+            "sha256": "0a0ede3a289fb25e2a38d7a89a8c8c411b22c2812954e4b0344ead617d5ec719",
             "type": "component",
             "components": [],
             "layout": []
@@ -204,7 +204,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/servicewatch_main.wasm",
-            "sha256": "53c8f974e8a352c149a7cabc461ade5ff87c68ca88b3e675ab2c5b83f1920825",
+            "sha256": "78a070eabdd10c9d8149cd4b2f02920afd8c1cbd4af6aea91a232e250122383c",
             "type": "component",
             "components": [],
             "layout": []
@@ -230,7 +230,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/filespace_browser.wasm",
-            "sha256": "bb290b701bd05acf2cacb67d61dfd6c11039ad2e84d93d4e4034a9d7e7b1a1cf",
+            "sha256": "9cee4a8c2a05e27b8ff81276699767df1dc8e6f2236b84c65cbcf20a632a8115",
             "type": "component",
             "components": [],
             "layout": []
@@ -243,7 +243,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/filespace_preview.wasm",
-            "sha256": "e23186bacffdd54dec60544978445972a9653cc9e398840f3447f315f3226059",
+            "sha256": "5fc80ad4804f0d7e0eddae39322527c2a50d1fcc71c36f1bfef9eb51d2342094",
             "type": "component",
             "components": [],
             "layout": []
@@ -256,7 +256,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/filespace_sidebar.wasm",
-            "sha256": "a9ed4053c8cc84bb0829ef47fcfdd75175692445432bb6a8afd92e876ecee27e",
+            "sha256": "efe8f23503cd3ef976e3166583e8a7c780f3dc83d2bfe53567d460f151e7bfe8",
             "type": "component",
             "components": [],
             "layout": []
@@ -269,7 +269,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/filespace_queue.wasm",
-            "sha256": "27ae96cbf4caad20dc7802ee2b6a29e9dcc54d625d14835034454cb8c9fd4e8d",
+            "sha256": "98783d249af1377f4a530a5dc06151e84783f88b648ec6e1654fcd103ca5b751",
             "type": "component",
             "components": [],
             "layout": []
@@ -282,7 +282,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/filespace_path.wasm",
-            "sha256": "d5d187a12d957a06ab93046f925e0208e21d584d31e8c940aff14e8334963b5f",
+            "sha256": "4cba96d3dafcd83b36273499c37d5c94b1be84915821af963e2d13f01a5e7b1c",
             "type": "component",
             "components": [],
             "layout": []
@@ -295,7 +295,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/mediadeck_now_playing.wasm",
-            "sha256": "57dea2f68e6e7fb64ae0b189fe4d76188416695f3320f6a4dc6274b4327e822c",
+            "sha256": "95c08400f66c029baa66d5c936456e0f94c8af47deb8b6a54e580b36aa621bce",
             "type": "component",
             "components": [],
             "layout": []
@@ -308,7 +308,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/mediadeck_visualizer.wasm",
-            "sha256": "a54bd0e280bcaf7400d541055b8d79cef93c099c0d4b6e61d5bd21e82615402a",
+            "sha256": "da047062d2cefc44c4aeebba510f5324bb1a5bfbdb4d7957aeda46a2ed04d8a3",
             "type": "component",
             "components": [],
             "layout": []
@@ -321,7 +321,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/mediadeck_players.wasm",
-            "sha256": "ff6d6e5d5ac4304f2912ab9c08c3e7fb759f82affaf51827b7a742a66fca281b",
+            "sha256": "8341546a10ac57ebf8690ea7b3f7628bd52c27f34a1bcd05630ea6b2833855b6",
             "type": "component",
             "components": [],
             "layout": []
@@ -334,7 +334,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/mediadeck_signal.wasm",
-            "sha256": "75a85b39c73b80b5fc085f987aa34e7db2ffd7cb754760399c0fcd0b59bd53de",
+            "sha256": "6282570124483da9197b5168c22c058f343abec0241a7735a670c8a5b8d0cbde",
             "type": "component",
             "components": [],
             "layout": []
@@ -347,7 +347,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/mediadeck_transport.wasm",
-            "sha256": "56565cff947759da4c1a7c703417cdee521b136131847510afd92e3917fa02d9",
+            "sha256": "56661ebed09692b591d8109992e570c3873b250d3c836f075e46207b351d1dc6",
             "type": "component",
             "components": [],
             "layout": []
@@ -360,7 +360,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/dashboard_github.wasm",
-            "sha256": "16773c5007fe8fe3821c679c5d000d56c72d0ecf49312436f739e92778b6a660",
+            "sha256": "cea210393fa1ad85c4da96d8f8d5c067bf39fff7ba8a96f2a9202791368a2402",
             "type": "component"
         },
         {
@@ -371,7 +371,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/dashboard_thermals.wasm",
-            "sha256": "5ad59d8210fe426686b357d6d49d926a95d9b721759e7c5dc2c6959db3810bcc",
+            "sha256": "a8d7b744ba5f737b431202c202b6d259a573941fad43185fe6d266467bcad1fc",
             "type": "component"
         },
         {
@@ -382,13 +382,13 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/dashboard_world_clocks.wasm",
-            "sha256": "dc200d5fe5809d0ee1c60e3fe1a7dce1f5b6ae58c7367db89efef2b0e2fd3bbf",
+            "sha256": "61799e31a684e5a10421ae30b6677af74f6f53d5e578ff92772012a9ef49c5d2",
             "type": "component"
         },
         {
             "id": "cryptopulse_suite",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/cryptopulse_suite.wasm",
-            "sha256": "47c6780843b7ddb55fee3163bea710e0e6487f09ed638d3710a997cc34e28c9d",
+            "sha256": "45df9eca37ad61370bc4f9cafa73a372b32eebe3a8f58047592ee2775e607763",
             "name": "CryptoPulse Suite",
             "description": "Core widgets for the CryptoPulse workspace.",
             "version": "0.1.0",
@@ -413,7 +413,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/video_player.wasm",
-            "sha256": "72502daeef7d1f68abf6bc77bbc937077818af4e3481c7c0c88054e802dbe13c",
+            "sha256": "fcfc49094c50ed2db400790ae8baf51179c227b951b43649306e25fd970cf497",
             "type": "component",
             "components": [
                 "video_widget"
@@ -428,7 +428,7 @@
             "api_version": "0.10.0",
             "author": "zius",
             "wasm_url": "https://raw.githubusercontent.com/ziuus/orbit-integrations/main/artifacts/page_rosary.wasm",
-            "sha256": "576c782727bfb7345348d9b0278cbd1ae782229121229302805c6a7688c2078e",
+            "sha256": "5b7736841539f1920054c19d181238cbfecaebf6980dcfc1249241f69a8542d0",
             "type": "component",
             "components": [],
             "layout": [
